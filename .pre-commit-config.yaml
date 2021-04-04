@@ -1,0 +1,21 @@
+repos:
+- hooks:
+  - id: check-yaml
+  - id: check-toml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  - args:
+    - --autofix
+    id: pretty-format-json
+  - id: check-docstring-first
+  - id: check-merge-conflict
+  - id: end-of-file-fixer
+  - args:
+    - --fix=lf
+    id: mixed-line-ending
+  repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+- hooks:
+  - id: black
+  repo: https://github.com/ambv/black
+  rev: stable
