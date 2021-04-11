@@ -17,7 +17,7 @@ class EsManagement:
         )
         logging.info(self.es_client.ping())
 
-    def create_index(self, index_name: str, mapping: Dict) -> None:
+    def create_index(self, index_name: str, mapping: Dict = None) -> None:
         """
         Create an ES index.
 

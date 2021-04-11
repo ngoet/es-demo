@@ -18,9 +18,7 @@ if __name__ == "__main__":
                 "must": [
                     {"match": {"type": "TV Movie"}},
                 ],
-                "filter": [
-                    {"range": {"release_year": {"gte": 2015}}}
-                ]
+                "filter": [{"range": {"release_year": {"gte": 2021}}}],
             }
         }
     }
