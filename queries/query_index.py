@@ -8,7 +8,7 @@ if __name__ == "__main__":
     print(es_connection.es_client.cluster.health())
 
     # Check the number of documents in your index
-    print(es_connection.es_client.count(index="netflix_movies"))
+    print(es_connection.es_client.count(index="netflix_movies_optimised"))  # TODO REMOVE optimised
 
     # Querying data
     # Query and filter contexts
@@ -16,14 +16,29 @@ if __name__ == "__main__":
         "query": {
             "bool": {
                 "must": [
-                    {"match": {"type": "TV Movie"}},
+                    {"match": {"type": "TV Show"}},
                 ],
                 "filter": [{"range": {"release_year": {"gte": 2021}}}],
             }
         }
     }
 
-    results = es_connection.es_client.search(index="netflix_movies", body=query)
+    results = es_connection.es_client.search(index="netflix_movies_optimised", body=query)
 
-    # Inspecting the scores of the returned documents
-    print([(i["_source"]["title"], i["_score"]) for i in results["hits"]["hits"]])
+    # Result
+    print([i["_source"]["title"] for i in results["hits"]["hits"]])
+
+    # Querying data
+    # Query and filter contexts
+    updated_query = {
+        "query": {
+            "bool": {
+                "filter": [{"range": {"release_year": {"gte": 2021}}}, {"term": {"type": "TV Show"}}],
+            }
+        }
+    }
+
+    results_updated_query = es_connection.es_client.search(index="netflix_movies_optimised", body=updated_query)
+
+    # Result
+    print([i["_source"]["title"] for i in results_updated_query["hits"]["hits"]])
