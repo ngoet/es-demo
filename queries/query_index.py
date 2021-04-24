@@ -28,6 +28,9 @@ if __name__ == "__main__":
     # Result
     print([i["_source"]["title"] for i in results["hits"]["hits"]])
 
+    # Inspecting the scores of the returned documents
+    print([(i["_source"]["title"], i["_score"]) for i in results["hits"]["hits"]])
+
     # Querying data
     # Query and filter contexts
     updated_query = {
